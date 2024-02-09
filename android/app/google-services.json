@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1024769652823",
+    "project_id": "nacto-care-m6uz7e",
+    "storage_bucket": "nacto-care-m6uz7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024769652823:android:7ade3d3d9b1ab346bf4b12",
+        "android_client_info": {
+          "package_name": "com.mycompany.nactocare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyY5T2xTp66ZpPvyEuXmKcxchCXIo3SAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
