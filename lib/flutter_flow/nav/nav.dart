@@ -89,6 +89,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'home',
           path: '/home',
           builder: (context, params) => const HomeWidget(),
+        ),
+        FFRoute(
+          name: 'LogInCopy',
+          path: '/logInCopy',
+          builder: (context, params) => const LogInCopyWidget(),
+        ),
+        FFRoute(
+          name: 'case_register',
+          path: '/caseRegister',
+          builder: (context, params) => const CaseRegisterWidget(),
+        ),
+        FFRoute(
+          name: 'nurseList',
+          path: '/nurseList',
+          builder: (context, params) => NurseListWidget(
+            userQuery: params.getParam('userQuery', ParamType.String),
+            radius: params.getParam('radius', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'Onboarding',
+          path: '/onboarding',
+          builder: (context, params) => const OnboardingWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

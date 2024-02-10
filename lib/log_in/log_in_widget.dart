@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'log_in_model.dart';
 export 'log_in_model.dart';
 
@@ -164,6 +165,8 @@ class _LogInWidgetState extends State<LogInWidget>
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -264,7 +267,12 @@ class _LogInWidgetState extends State<LogInWidget>
                                       ],
                                       controller: _model.tabBarController,
                                       onTap: (i) async {
-                                        [() async {}, () async {}][i]();
+                                        [
+                                          () async {},
+                                          () async {
+                                            context.pushNamed('case_register');
+                                          }
+                                        ][i]();
                                       },
                                     ),
                                   ),
@@ -985,7 +993,8 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                       () async {
                                                                     setState(
                                                                         () {
-                                                                      _model.isNurse =
+                                                                      FFAppState()
+                                                                              .isNurse =
                                                                           true;
                                                                     });
                                                                   },
@@ -1068,7 +1077,8 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                       () async {
                                                                     setState(
                                                                         () {
-                                                                      _model.isNurse =
+                                                                      FFAppState()
+                                                                              .isNurse =
                                                                           false;
                                                                     });
                                                                   },
@@ -1107,7 +1117,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                       children: [
                                                                         Icon(
                                                                           Icons
-                                                                              .badge_rounded,
+                                                                              .badge,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primaryText,
                                                                           size:
@@ -1158,6 +1168,8 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                   16.0),
                                                       child: FFButtonWidget(
                                                         onPressed: () async {
+                                                          Function() navigate =
+                                                              () {};
                                                           GoRouter.of(context)
                                                               .prepareAuthEvent();
                                                           if (_model
@@ -1193,35 +1205,62 @@ class _LogInWidgetState extends State<LogInWidget>
                                                             return;
                                                           }
 
-                                                          await UsersRecord
-                                                              .collection
-                                                              .doc(user.uid)
-                                                              .update({
-                                                            ...createUsersRecordData(
-                                                              email: _model
-                                                                  .emailAddressController1
-                                                                  .text,
-                                                              displayName: _model
-                                                                  .displayNameController
-                                                                  .text,
-                                                              phoneNumber: _model
-                                                                  .phoneNumberController
-                                                                  .text,
-                                                              isNurse: _model
-                                                                  .isNurse,
-                                                            ),
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'created_time':
-                                                                    FieldValue
-                                                                        .serverTimestamp(),
-                                                              },
-                                                            ),
-                                                          });
+                                                          navigate = () =>
+                                                              context.goNamedAuth(
+                                                                  'home',
+                                                                  context
+                                                                      .mounted);
+                                                          if (FFAppState()
+                                                              .isNurse) {
+                                                            await NurseRecord
+                                                                .collection
+                                                                .doc()
+                                                                .set({
+                                                              ...createNurseRecordData(
+                                                                email: _model
+                                                                    .emailAddressController1
+                                                                    .text,
+                                                                displayName:
+                                                                    currentUserDisplayName,
+                                                                phoneNumber: _model
+                                                                    .phoneNumberController
+                                                                    .text,
+                                                              ),
+                                                              ...mapToFirestore(
+                                                                {
+                                                                  'created_time':
+                                                                      FieldValue
+                                                                          .serverTimestamp(),
+                                                                },
+                                                              ),
+                                                            });
+                                                          } else {
+                                                            await UsersRecord
+                                                                .collection
+                                                                .doc()
+                                                                .set({
+                                                              ...createUsersRecordData(
+                                                                email: _model
+                                                                    .emailAddressController1
+                                                                    .text,
+                                                                displayName: _model
+                                                                    .displayNameController
+                                                                    .text,
+                                                                phoneNumber: _model
+                                                                    .phoneNumberController
+                                                                    .text,
+                                                              ),
+                                                              ...mapToFirestore(
+                                                                {
+                                                                  'created_time':
+                                                                      FieldValue
+                                                                          .serverTimestamp(),
+                                                                },
+                                                              ),
+                                                            });
+                                                          }
 
-                                                          context.goNamedAuth(
-                                                              'home',
-                                                              context.mounted);
+                                                          navigate();
                                                         },
                                                         text: 'Get Started',
                                                         options:
@@ -1570,74 +1609,124 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                   0.0,
                                                                   0.0,
                                                                   16.0),
-                                                      child: FFButtonWidget(
-                                                        onPressed: () async {
-                                                          GoRouter.of(context)
-                                                              .prepareAuthEvent();
-
-                                                          final user =
-                                                              await authManager
-                                                                  .signInWithEmail(
-                                                            context,
-                                                            _model
-                                                                .emailAddressController2
-                                                                .text,
-                                                            _model
-                                                                .passwordController2
-                                                                .text,
-                                                          );
-                                                          if (user == null) {
-                                                            return;
-                                                          }
-
-                                                          context.goNamedAuth(
-                                                              'home',
-                                                              context.mounted);
-                                                        },
-                                                        text: 'Sign In',
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 230.0,
-                                                          height: 52.0,
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          iconPadding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          textStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Inter',
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                          elevation: 3.0,
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 1.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      40.0),
+                                                      child: StreamBuilder<
+                                                          List<NurseRecord>>(
+                                                        stream:
+                                                            queryNurseRecord(
+                                                          queryBuilder:
+                                                              (nurseRecord) =>
+                                                                  nurseRecord
+                                                                      .orderBy(
+                                                                          'created_time'),
                                                         ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<NurseRecord>
+                                                              buttonNurseRecordList =
+                                                              snapshot.data!;
+                                                          return FFButtonWidget(
+                                                            onPressed:
+                                                                () async {
+                                                              GoRouter.of(
+                                                                      context)
+                                                                  .prepareAuthEvent();
+
+                                                              final user =
+                                                                  await authManager
+                                                                      .signInWithEmail(
+                                                                context,
+                                                                _model
+                                                                    .emailAddressController1
+                                                                    .text,
+                                                                _model
+                                                                    .passwordController1
+                                                                    .text,
+                                                              );
+                                                              if (user ==
+                                                                  null) {
+                                                                return;
+                                                              }
+
+                                                              setState(() {
+                                                                FFAppState()
+                                                                    .isNurse = buttonNurseRecordList
+                                                                        .where((e) =>
+                                                                            e.email ==
+                                                                            _model.emailAddressController2.text)
+                                                                        .toList().isNotEmpty;
+                                                              });
+
+                                                              context.goNamedAuth(
+                                                                  'home',
+                                                                  context
+                                                                      .mounted);
+                                                            },
+                                                            text: 'Sign In',
+                                                            options:
+                                                                FFButtonOptions(
+                                                              width: 230.0,
+                                                              height: 52.0,
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              iconPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                              elevation: 3.0,
+                                                              borderSide:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                width: 1.0,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          40.0),
+                                                            ),
+                                                          );
+                                                        },
                                                       ),
                                                     ),
                                                   ),
