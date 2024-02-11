@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'log_in_copy_widget.dart' show LogInCopyWidget;
+import 'courses_widget.dart' show CoursesWidget;
 import 'package:flutter/material.dart';
 
-class LogInCopyModel extends FlutterFlowModel<LogInCopyWidget> {
+class CoursesModel extends FlutterFlowModel<CoursesWidget> {
   ///  Local state fields for this page.
 
   bool isNurse = true;

@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -72,33 +72,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomeWidget() : const LogInWidget(),
+          appStateNotifier.loggedIn ? const HomeWidget() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomeWidget() : const LogInWidget(),
+              appStateNotifier.loggedIn ? const HomeWidget() : const LoginWidget(),
         ),
         FFRoute(
-          name: 'LogIn',
-          path: '/logIn',
-          builder: (context, params) => const LogInWidget(),
+          name: 'login',
+          path: '/login',
+          builder: (context, params) => const LoginWidget(),
         ),
         FFRoute(
           name: 'home',
           path: '/home',
-          builder: (context, params) => const HomeWidget(),
+          asyncParams: {
+            'nurse': getDoc(['nurses'], NursesRecord.fromSnapshot),
+          },
+          builder: (context, params) => HomeWidget(
+            nurse: params.getParam('nurse', ParamType.Document),
+          ),
         ),
         FFRoute(
-          name: 'LogInCopy',
-          path: '/logInCopy',
-          builder: (context, params) => const LogInCopyWidget(),
-        ),
-        FFRoute(
-          name: 'case_register',
-          path: '/caseRegister',
-          builder: (context, params) => const CaseRegisterWidget(),
+          name: 'courses',
+          path: '/courses',
+          builder: (context, params) => const CoursesWidget(),
         ),
         FFRoute(
           name: 'nurseList',
@@ -109,9 +109,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'Onboarding',
+          name: 'onboarding',
           path: '/onboarding',
-          builder: (context, params) => const OnboardingWidget(),
+          asyncParams: {
+            'nurse': getDoc(['nurses'], NursesRecord.fromSnapshot),
+          },
+          builder: (context, params) => OnboardingWidget(
+            nurse: params.getParam('nurse', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'payment',
+          path: '/payment',
+          builder: (context, params) => PaymentWidget(
+            ammount: params.getParam('ammount', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'notifications',
+          path: '/notifications',
+          builder: (context, params) => const NotificationsWidget(),
+        ),
+        FFRoute(
+          name: 'session',
+          path: '/session',
+          asyncParams: {
+            'nurse': getDoc(['nurses'], NursesRecord.fromSnapshot),
+          },
+          builder: (context, params) => SessionWidget(
+            nurse: params.getParam('nurse', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -278,7 +305,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/logIn';
+            return '/login';
           }
           return null;
         },
@@ -291,14 +318,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/nurse.png',
+                      height: 200.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )

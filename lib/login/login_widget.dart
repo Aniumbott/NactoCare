@@ -9,19 +9,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'log_in_model.dart';
-export 'log_in_model.dart';
+import 'login_model.dart';
+export 'login_model.dart';
 
-class LogInWidget extends StatefulWidget {
-  const LogInWidget({super.key});
+class LoginWidget extends StatefulWidget {
+  const LoginWidget({super.key});
 
   @override
-  State<LogInWidget> createState() => _LogInWidgetState();
+  State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LogInWidgetState extends State<LogInWidget>
+class _LoginWidgetState extends State<LoginWidget>
     with TickerProviderStateMixin {
-  late LogInModel _model;
+  late LoginModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -111,7 +111,7 @@ class _LogInWidgetState extends State<LogInWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LogInModel());
+    _model = createModel(context, () => LoginModel());
 
     _model.tabBarController = TabController(
       vsync: this,
@@ -121,23 +121,23 @@ class _LogInWidgetState extends State<LogInWidget>
     _model.displayNameController ??= TextEditingController();
     _model.displayNameFocusNode ??= FocusNode();
 
-    _model.emailAddressController1 ??= TextEditingController();
-    _model.emailAddressFocusNode1 ??= FocusNode();
+    _model.emailAddressSignUpController ??= TextEditingController();
+    _model.emailAddressSignUpFocusNode ??= FocusNode();
 
     _model.phoneNumberController ??= TextEditingController();
     _model.phoneNumberFocusNode ??= FocusNode();
 
-    _model.passwordController1 ??= TextEditingController();
-    _model.passwordFocusNode1 ??= FocusNode();
+    _model.passwordController ??= TextEditingController();
+    _model.passwordFocusNode ??= FocusNode();
 
     _model.confirmPasswordController ??= TextEditingController();
     _model.confirmPasswordFocusNode ??= FocusNode();
 
-    _model.emailAddressController2 ??= TextEditingController();
-    _model.emailAddressFocusNode2 ??= FocusNode();
+    _model.emailAddressLogInController ??= TextEditingController();
+    _model.emailAddressLogInFocusNode ??= FocusNode();
 
-    _model.passwordController2 ??= TextEditingController();
-    _model.passwordFocusNode2 ??= FocusNode();
+    _model.passwordLogInController ??= TextEditingController();
+    _model.passwordLogInFocusNode ??= FocusNode();
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -267,12 +267,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                       ],
                                       controller: _model.tabBarController,
                                       onTap: (i) async {
-                                        [
-                                          () async {},
-                                          () async {
-                                            context.pushNamed('case_register');
-                                          }
-                                        ][i]();
+                                        [() async {}, () async {}][i]();
                                       },
                                     ),
                                   ),
@@ -427,7 +422,14 @@ class _LogInWidgetState extends State<LogInWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium,
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
                                                         validator: _model
                                                             .displayNameControllerValidator
                                                             .asValidator(
@@ -444,9 +446,9 @@ class _LogInWidgetState extends State<LogInWidget>
                                                       width: double.infinity,
                                                       child: TextFormField(
                                                         controller: _model
-                                                            .emailAddressController1,
+                                                            .emailAddressSignUpController,
                                                         focusNode: _model
-                                                            .emailAddressFocusNode1,
+                                                            .emailAddressSignUpFocusNode,
                                                         autofocus: true,
                                                         autofillHints: const [
                                                           AutofillHints.email
@@ -533,12 +535,19 @@ class _LogInWidgetState extends State<LogInWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium,
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
                                                         keyboardType:
                                                             TextInputType
                                                                 .emailAddress,
                                                         validator: _model
-                                                            .emailAddressController1Validator
+                                                            .emailAddressSignUpControllerValidator
                                                             .asValidator(
                                                                 context),
                                                       ),
@@ -642,7 +651,14 @@ class _LogInWidgetState extends State<LogInWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium,
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
                                                         keyboardType:
                                                             TextInputType.phone,
                                                         validator: _model
@@ -661,15 +677,15 @@ class _LogInWidgetState extends State<LogInWidget>
                                                       width: double.infinity,
                                                       child: TextFormField(
                                                         controller: _model
-                                                            .passwordController1,
+                                                            .passwordController,
                                                         focusNode: _model
-                                                            .passwordFocusNode1,
+                                                            .passwordFocusNode,
                                                         autofocus: true,
                                                         autofillHints: const [
                                                           AutofillHints.password
                                                         ],
                                                         obscureText: !_model
-                                                            .passwordVisibility1,
+                                                            .passwordVisibility,
                                                         decoration:
                                                             InputDecoration(
                                                           labelText: 'Password',
@@ -751,15 +767,15 @@ class _LogInWidgetState extends State<LogInWidget>
                                                             onTap: () =>
                                                                 setState(
                                                               () => _model
-                                                                      .passwordVisibility1 =
+                                                                      .passwordVisibility =
                                                                   !_model
-                                                                      .passwordVisibility1,
+                                                                      .passwordVisibility,
                                                             ),
                                                             focusNode: FocusNode(
                                                                 skipTraversal:
                                                                     true),
                                                             child: Icon(
-                                                              _model.passwordVisibility1
+                                                              _model.passwordVisibility
                                                                   ? Icons
                                                                       .visibility_outlined
                                                                   : Icons
@@ -774,9 +790,16 @@ class _LogInWidgetState extends State<LogInWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium,
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                ),
                                                         validator: _model
-                                                            .passwordController1Validator
+                                                            .passwordControllerValidator
                                                             .asValidator(
                                                                 context),
                                                       ),
@@ -905,7 +928,14 @@ class _LogInWidgetState extends State<LogInWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleMedium,
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
                                                         validator: _model
                                                             .confirmPasswordControllerValidator
                                                             .asValidator(
@@ -1006,7 +1036,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                         100.0,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: _model.isNurse
+                                                                      color: FFAppState().isNurse
                                                                           ? FlutterFlowTheme.of(context)
                                                                               .success
                                                                           : FlutterFlowTheme.of(context)
@@ -1090,7 +1120,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                         100.0,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: !_model.isNurse
+                                                                      color: !FFAppState().isNurse
                                                                           ? FlutterFlowTheme.of(context)
                                                                               .success
                                                                           : FlutterFlowTheme.of(context)
@@ -1168,12 +1198,10 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                   16.0),
                                                       child: FFButtonWidget(
                                                         onPressed: () async {
-                                                          Function() navigate =
-                                                              () {};
                                                           GoRouter.of(context)
                                                               .prepareAuthEvent();
                                                           if (_model
-                                                                  .passwordController1
+                                                                  .passwordController
                                                                   .text !=
                                                               _model
                                                                   .confirmPasswordController
@@ -1195,30 +1223,27 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                   .createAccountWithEmail(
                                                             context,
                                                             _model
-                                                                .emailAddressController1
+                                                                .emailAddressSignUpController
                                                                 .text,
                                                             _model
-                                                                .passwordController1
+                                                                .passwordController
                                                                 .text,
                                                           );
                                                           if (user == null) {
                                                             return;
                                                           }
 
-                                                          navigate = () =>
-                                                              context.goNamedAuth(
-                                                                  'home',
-                                                                  context
-                                                                      .mounted);
                                                           if (FFAppState()
                                                               .isNurse) {
-                                                            await NurseRecord
-                                                                .collection
-                                                                .doc()
+                                                            var nursesRecordReference =
+                                                                NursesRecord
+                                                                    .collection
+                                                                    .doc();
+                                                            await nursesRecordReference
                                                                 .set({
-                                                              ...createNurseRecordData(
+                                                              ...createNursesRecordData(
                                                                 email: _model
-                                                                    .emailAddressController1
+                                                                    .emailAddressSignUpController
                                                                     .text,
                                                                 displayName:
                                                                     currentUserDisplayName,
@@ -1234,6 +1259,46 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                 },
                                                               ),
                                                             });
+                                                            _model.nurse =
+                                                                NursesRecord
+                                                                    .getDocumentFromData({
+                                                              ...createNursesRecordData(
+                                                                email: _model
+                                                                    .emailAddressSignUpController
+                                                                    .text,
+                                                                displayName:
+                                                                    currentUserDisplayName,
+                                                                phoneNumber: _model
+                                                                    .phoneNumberController
+                                                                    .text,
+                                                              ),
+                                                              ...mapToFirestore(
+                                                                {
+                                                                  'created_time':
+                                                                      DateTime
+                                                                          .now(),
+                                                                },
+                                                              ),
+                                                            }, nursesRecordReference);
+
+                                                            context
+                                                                .pushNamedAuth(
+                                                              'home',
+                                                              context.mounted,
+                                                              queryParameters: {
+                                                                'nurse':
+                                                                    serializeParam(
+                                                                  _model.nurse,
+                                                                  ParamType
+                                                                      .Document,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                'nurse': _model
+                                                                    .nurse,
+                                                              },
+                                                            );
                                                           } else {
                                                             await UsersRecord
                                                                 .collection
@@ -1241,7 +1306,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                 .set({
                                                               ...createUsersRecordData(
                                                                 email: _model
-                                                                    .emailAddressController1
+                                                                    .emailAddressSignUpController
                                                                     .text,
                                                                 displayName: _model
                                                                     .displayNameController
@@ -1260,7 +1325,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                             });
                                                           }
 
-                                                          navigate();
+                                                          setState(() {});
                                                         },
                                                         text: 'Get Started',
                                                         options:
@@ -1373,9 +1438,9 @@ class _LogInWidgetState extends State<LogInWidget>
                                                       width: double.infinity,
                                                       child: TextFormField(
                                                         controller: _model
-                                                            .emailAddressController2,
+                                                            .emailAddressLogInController,
                                                         focusNode: _model
-                                                            .emailAddressFocusNode2,
+                                                            .emailAddressLogInFocusNode,
                                                         autofocus: true,
                                                         autofillHints: const [
                                                           AutofillHints.email
@@ -1464,7 +1529,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                             TextInputType
                                                                 .emailAddress,
                                                         validator: _model
-                                                            .emailAddressController2Validator
+                                                            .emailAddressLogInControllerValidator
                                                             .asValidator(
                                                                 context),
                                                       ),
@@ -1479,15 +1544,15 @@ class _LogInWidgetState extends State<LogInWidget>
                                                       width: double.infinity,
                                                       child: TextFormField(
                                                         controller: _model
-                                                            .passwordController2,
+                                                            .passwordLogInController,
                                                         focusNode: _model
-                                                            .passwordFocusNode2,
+                                                            .passwordLogInFocusNode,
                                                         autofocus: true,
                                                         autofillHints: const [
                                                           AutofillHints.password
                                                         ],
                                                         obscureText: !_model
-                                                            .passwordVisibility2,
+                                                            .passwordLogInVisibility,
                                                         decoration:
                                                             InputDecoration(
                                                           labelText: 'Password',
@@ -1566,15 +1631,15 @@ class _LogInWidgetState extends State<LogInWidget>
                                                             onTap: () =>
                                                                 setState(
                                                               () => _model
-                                                                      .passwordVisibility2 =
+                                                                      .passwordLogInVisibility =
                                                                   !_model
-                                                                      .passwordVisibility2,
+                                                                      .passwordLogInVisibility,
                                                             ),
                                                             focusNode: FocusNode(
                                                                 skipTraversal:
                                                                     true),
                                                             child: Icon(
-                                                              _model.passwordVisibility2
+                                                              _model.passwordLogInVisibility
                                                                   ? Icons
                                                                       .visibility_outlined
                                                                   : Icons
@@ -1591,7 +1656,7 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                     context)
                                                                 .bodyLarge,
                                                         validator: _model
-                                                            .passwordController2Validator
+                                                            .passwordLogInControllerValidator
                                                             .asValidator(
                                                                 context),
                                                       ),
@@ -1610,12 +1675,12 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                   0.0,
                                                                   16.0),
                                                       child: StreamBuilder<
-                                                          List<NurseRecord>>(
+                                                          List<NursesRecord>>(
                                                         stream:
-                                                            queryNurseRecord(
+                                                            queryNursesRecord(
                                                           queryBuilder:
-                                                              (nurseRecord) =>
-                                                                  nurseRecord
+                                                              (nursesRecord) =>
+                                                                  nursesRecord
                                                                       .orderBy(
                                                                           'created_time'),
                                                         ),
@@ -1641,8 +1706,8 @@ class _LogInWidgetState extends State<LogInWidget>
                                                               ),
                                                             );
                                                           }
-                                                          List<NurseRecord>
-                                                              buttonNurseRecordList =
+                                                          List<NursesRecord>
+                                                              buttonNursesRecordList =
                                                               snapshot.data!;
                                                           return FFButtonWidget(
                                                             onPressed:
@@ -1656,10 +1721,10 @@ class _LogInWidgetState extends State<LogInWidget>
                                                                       .signInWithEmail(
                                                                 context,
                                                                 _model
-                                                                    .emailAddressController1
+                                                                    .emailAddressLogInController
                                                                     .text,
                                                                 _model
-                                                                    .passwordController1
+                                                                    .passwordLogInController
                                                                     .text,
                                                               );
                                                               if (user ==
@@ -1669,17 +1734,49 @@ class _LogInWidgetState extends State<LogInWidget>
 
                                                               setState(() {
                                                                 FFAppState()
-                                                                    .isNurse = buttonNurseRecordList
+                                                                    .isNurse = buttonNursesRecordList
                                                                         .where((e) =>
                                                                             e.email ==
-                                                                            _model.emailAddressController2.text)
+                                                                            _model.emailAddressLogInController.text)
                                                                         .toList().isNotEmpty;
                                                               });
-
-                                                              context.goNamedAuth(
+                                                              if (FFAppState()
+                                                                  .isNurse) {
+                                                                context
+                                                                    .pushNamedAuth(
                                                                   'home',
                                                                   context
-                                                                      .mounted);
+                                                                      .mounted,
+                                                                  queryParameters:
+                                                                      {
+                                                                    'nurse':
+                                                                        serializeParam(
+                                                                      buttonNursesRecordList
+                                                                          .where((e) =>
+                                                                              e.email ==
+                                                                              currentUserEmail)
+                                                                          .toList()
+                                                                          .first,
+                                                                      ParamType
+                                                                          .Document,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                  extra: <String,
+                                                                      dynamic>{
+                                                                    'nurse': buttonNursesRecordList
+                                                                        .where((e) =>
+                                                                            e.email ==
+                                                                            currentUserEmail)
+                                                                        .toList()
+                                                                        .first,
+                                                                  },
+                                                                );
+                                                              } else {
+                                                                context.pushNamedAuth(
+                                                                    'home',
+                                                                    context
+                                                                        .mounted);
+                                                              }
                                                             },
                                                             text: 'Sign In',
                                                             options:

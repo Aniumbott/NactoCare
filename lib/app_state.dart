@@ -36,14 +36,15 @@ class FFAppState extends ChangeNotifier {
     jsonDecode(
         '{"name":"Cardiac Nurse","description":"Cardiac nursing is a nursing specialty that involves working with patients who have cardiovascular system conditions. Cardiac nurses provide medical care and promote healthy lifestyle choices to help reduce the risk of heart disease."}'),
     jsonDecode(
-        '{"name":"Onchology Nurse","description":"An oncology nurse is a nurse who specializes in treating and caring for people who have cancer."}'),
+        '{"name":"Oncology Nurse","description":"An oncology nurse is a nurse who specializes in treating and caring for people who have cancer."}'),
     jsonDecode(
-        '{"name":"Gentological Nurse","description":"Gerontological nursing is a nursing specialty that focuses on caring for older adults. Gerontological nurses, also called geriatric nurses, work with older adults, their families, and communities to support healthy aging, maximum functioning, and quality of life."}'),
+        '{"name":"Gerontological Nurse","description":"Gerontological nursing is a nursing specialty that focuses on caring for older adults. Gerontological nurses, also called geriatric nurses, work with older adults, their families, and communities to support healthy aging, maximum functioning, and quality of life."}'),
     jsonDecode(
         '{"name":"Orthopedic Nurse","description":"Orthopedic nursing is a nursing specialty that focuses on the prevention and treatment of musculoskeletal disorders."}'),
     jsonDecode(
         '{"name":"Critical Care Nurse","description":"Critical care nursing, also known as intensive care unit (ICU) nursing, is a healthcare field that focuses on caring for patients with life-threatening diseases, injuries, or who are post-surgical."}'),
-    jsonDecode('{"name":"Mente"}')
+    jsonDecode(
+        '{"name":"Not Sure","description":"The user is not sure about his/her domain of requirement."}')
   ];
   List<dynamic> get domains => _domains;
   set domains(List<dynamic> value) {

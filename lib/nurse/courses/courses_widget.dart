@@ -1,23 +1,24 @@
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
-import 'log_in_copy_model.dart';
-export 'log_in_copy_model.dart';
+import 'courses_model.dart';
+export 'courses_model.dart';
 
-class LogInCopyWidget extends StatefulWidget {
-  const LogInCopyWidget({super.key});
+class CoursesWidget extends StatefulWidget {
+  const CoursesWidget({super.key});
 
   @override
-  State<LogInCopyWidget> createState() => _LogInCopyWidgetState();
+  State<CoursesWidget> createState() => _CoursesWidgetState();
 }
 
-class _LogInCopyWidgetState extends State<LogInCopyWidget>
+class _CoursesWidgetState extends State<CoursesWidget>
     with TickerProviderStateMixin {
-  late LogInCopyModel _model;
+  late CoursesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -74,7 +75,7 @@ class _LogInCopyWidgetState extends State<LogInCopyWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LogInCopyModel());
+    _model = createModel(context, () => CoursesModel());
 
     _model.tabBarController = TabController(
       vsync: this,
@@ -128,10 +129,28 @@ class _LogInCopyWidgetState extends State<LogInCopyWidget>
                     alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 72.0),
-                      child: Text(
-                        'NactoCare',
-                        style: FlutterFlowTheme.of(context).displaySmall,
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Get Certified !!!',
+                            style: FlutterFlowTheme.of(context)
+                                .displaySmall
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Platform-certified Nurses have a high chance of getting sessions. ',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -414,6 +433,24 @@ class _LogInCopyWidgetState extends State<LogInCopyWidget>
                       ],
                     ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 0.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderColor: FlutterFlowTheme.of(context).primary,
+                  borderRadius: 5.0,
+                  borderWidth: 0.0,
+                  buttonSize: 40.0,
+                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                  icon: Icon(
+                    Icons.chevron_left,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 24.0,
+                  ),
+                  onPressed: () {
+                    print('IconButton pressed ...');
+                  },
                 ),
               ),
             ],

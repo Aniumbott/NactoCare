@@ -1,7 +1,9 @@
 // Export pages
-export '/log_in/log_in_widget.dart' show LogInWidget;
+export '/login/login_widget.dart' show LoginWidget;
 export '/home/home_widget.dart' show HomeWidget;
-export '/nurse/log_in_copy/log_in_copy_widget.dart' show LogInCopyWidget;
-export '/user/case_register/case_register_widget.dart' show CaseRegisterWidget;
+export '/nurse/courses/courses_widget.dart' show CoursesWidget;
 export '/user/nurse_list/nurse_list_widget.dart' show NurseListWidget;
 export '/nurse/onboarding/onboarding_widget.dart' show OnboardingWidget;
+export '/nurse/payment/payment_widget.dart' show PaymentWidget;
+export '/notifications/notifications_widget.dart' show NotificationsWidget;
+export '/user/session/session_widget.dart' show SessionWidget;

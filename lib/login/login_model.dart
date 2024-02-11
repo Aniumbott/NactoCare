@@ -1,12 +1,9 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'log_in_widget.dart' show LogInWidget;
+import 'login_widget.dart' show LoginWidget;
 import 'package:flutter/material.dart';
 
-class LogInModel extends FlutterFlowModel<LogInWidget> {
-  ///  Local state fields for this page.
-
-  bool isNurse = true;
-
+class LoginModel extends FlutterFlowModel<LoginWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -19,41 +16,44 @@ class LogInModel extends FlutterFlowModel<LogInWidget> {
   FocusNode? displayNameFocusNode;
   TextEditingController? displayNameController;
   String? Function(BuildContext, String?)? displayNameControllerValidator;
-  // State field(s) for emailAddress widget.
-  FocusNode? emailAddressFocusNode1;
-  TextEditingController? emailAddressController1;
-  String? Function(BuildContext, String?)? emailAddressController1Validator;
+  // State field(s) for emailAddressSignUp widget.
+  FocusNode? emailAddressSignUpFocusNode;
+  TextEditingController? emailAddressSignUpController;
+  String? Function(BuildContext, String?)?
+      emailAddressSignUpControllerValidator;
   // State field(s) for phoneNumber widget.
   FocusNode? phoneNumberFocusNode;
   TextEditingController? phoneNumberController;
   String? Function(BuildContext, String?)? phoneNumberControllerValidator;
   // State field(s) for password widget.
-  FocusNode? passwordFocusNode1;
-  TextEditingController? passwordController1;
-  late bool passwordVisibility1;
-  String? Function(BuildContext, String?)? passwordController1Validator;
+  FocusNode? passwordFocusNode;
+  TextEditingController? passwordController;
+  late bool passwordVisibility;
+  String? Function(BuildContext, String?)? passwordControllerValidator;
   // State field(s) for ConfirmPassword widget.
   FocusNode? confirmPasswordFocusNode;
   TextEditingController? confirmPasswordController;
   late bool confirmPasswordVisibility;
   String? Function(BuildContext, String?)? confirmPasswordControllerValidator;
-  // State field(s) for emailAddress widget.
-  FocusNode? emailAddressFocusNode2;
-  TextEditingController? emailAddressController2;
-  String? Function(BuildContext, String?)? emailAddressController2Validator;
-  // State field(s) for password widget.
-  FocusNode? passwordFocusNode2;
-  TextEditingController? passwordController2;
-  late bool passwordVisibility2;
-  String? Function(BuildContext, String?)? passwordController2Validator;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  NursesRecord? nurse;
+  // State field(s) for emailAddressLogIn widget.
+  FocusNode? emailAddressLogInFocusNode;
+  TextEditingController? emailAddressLogInController;
+  String? Function(BuildContext, String?)? emailAddressLogInControllerValidator;
+  // State field(s) for passwordLogIn widget.
+  FocusNode? passwordLogInFocusNode;
+  TextEditingController? passwordLogInController;
+  late bool passwordLogInVisibility;
+  String? Function(BuildContext, String?)? passwordLogInControllerValidator;
 
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
-    passwordVisibility1 = false;
+    passwordVisibility = false;
     confirmPasswordVisibility = false;
-    passwordVisibility2 = false;
+    passwordLogInVisibility = false;
   }
 
   @override
@@ -63,23 +63,23 @@ class LogInModel extends FlutterFlowModel<LogInWidget> {
     displayNameFocusNode?.dispose();
     displayNameController?.dispose();
 
-    emailAddressFocusNode1?.dispose();
-    emailAddressController1?.dispose();
+    emailAddressSignUpFocusNode?.dispose();
+    emailAddressSignUpController?.dispose();
 
     phoneNumberFocusNode?.dispose();
     phoneNumberController?.dispose();
 
-    passwordFocusNode1?.dispose();
-    passwordController1?.dispose();
+    passwordFocusNode?.dispose();
+    passwordController?.dispose();
 
     confirmPasswordFocusNode?.dispose();
     confirmPasswordController?.dispose();
 
-    emailAddressFocusNode2?.dispose();
-    emailAddressController2?.dispose();
+    emailAddressLogInFocusNode?.dispose();
+    emailAddressLogInController?.dispose();
 
-    passwordFocusNode2?.dispose();
-    passwordController2?.dispose();
+    passwordLogInFocusNode?.dispose();
+    passwordLogInController?.dispose();
   }
 
   /// Action blocks are added here.

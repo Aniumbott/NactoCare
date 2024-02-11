@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,7 +13,12 @@ import 'onboarding_model.dart';
 export 'onboarding_model.dart';
 
 class OnboardingWidget extends StatefulWidget {
-  const OnboardingWidget({super.key});
+  const OnboardingWidget({
+    super.key,
+    required this.nurse,
+  });
+
+  final NursesRecord? nurse;
 
   @override
   State<OnboardingWidget> createState() => _OnboardingWidgetState();
@@ -94,15 +101,18 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         width: 70.0,
                         height: 70.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                           borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).alternate,
+                          ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1592520113018-180c8bc831c9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI3fHxwcm9maWxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+                            child: Image.asset(
+                              'assets/images/nurse.png',
                               width: 100.0,
                               height: 100.0,
                               fit: BoxFit.cover,
@@ -118,7 +128,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Elaine Edwards',
+                              currentUserDisplayName,
                               style: FlutterFlowTheme.of(context).headlineSmall,
                             ),
                             FFButtonWidget(
@@ -297,52 +307,93 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   ],
                 ),
               ),
-              FFButtonWidget(
-                onPressed: () async {
-                  final selectedMedia = await selectMediaWithSourceBottomSheet(
-                    context: context,
-                    allowPhoto: true,
-                  );
-                  if (selectedMedia != null &&
-                      selectedMedia.every(
-                          (m) => validateFileFormat(m.storagePath, context))) {
-                    setState(() => _model.isDataUploading = true);
-                    var selectedUploadedFiles = <FFUploadedFile>[];
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    final selectedMedia =
+                        await selectMediaWithSourceBottomSheet(
+                      context: context,
+                      allowPhoto: true,
+                    );
+                    if (selectedMedia != null &&
+                        selectedMedia.every((m) =>
+                            validateFileFormat(m.storagePath, context))) {
+                      setState(() => _model.isDataUploading = true);
+                      var selectedUploadedFiles = <FFUploadedFile>[];
 
-                    try {
-                      selectedUploadedFiles = selectedMedia
-                          .map((m) => FFUploadedFile(
-                                name: m.storagePath.split('/').last,
-                                bytes: m.bytes,
-                                height: m.dimensions?.height,
-                                width: m.dimensions?.width,
-                                blurHash: m.blurHash,
-                              ))
-                          .toList();
-                    } finally {
-                      _model.isDataUploading = false;
+                      try {
+                        selectedUploadedFiles = selectedMedia
+                            .map((m) => FFUploadedFile(
+                                  name: m.storagePath.split('/').last,
+                                  bytes: m.bytes,
+                                  height: m.dimensions?.height,
+                                  width: m.dimensions?.width,
+                                  blurHash: m.blurHash,
+                                ))
+                            .toList();
+                      } finally {
+                        _model.isDataUploading = false;
+                      }
+                      if (selectedUploadedFiles.length ==
+                          selectedMedia.length) {
+                        setState(() {
+                          _model.uploadedLocalFile =
+                              selectedUploadedFiles.first;
+                        });
+                      } else {
+                        setState(() {});
+                        return;
+                      }
                     }
-                    if (selectedUploadedFiles.length == selectedMedia.length) {
-                      setState(() {
-                        _model.uploadedLocalFile = selectedUploadedFiles.first;
-                      });
-                    } else {
-                      setState(() {});
-                      return;
-                    }
-                  }
+                  },
+                  text: '',
+                  icon: const Icon(
+                    Icons.upload_file_sharp,
+                    size: 15.0,
+                  ),
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 40.0,
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                          fontSize: 12.0,
+                        ),
+                    elevation: 3.0,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: const AlignmentDirectional(-1.0, 0.0),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 50.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: () {
+                  print('Button pressed ...');
                 },
-                text: 'Upload Document',
+                text: 'Submit',
                 options: FFButtonOptions(
                   height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   iconPadding:
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'Inter',
                         color: Colors.white,
-                        fontSize: 12.0,
                       ),
                   elevation: 3.0,
                   borderSide: const BorderSide(
@@ -352,7 +403,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
