@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "863938532922",
+    "project_id": "nacto-care-vvg7qk",
+    "storage_bucket": "nacto-care-vvg7qk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863938532922:android:bbf8c53e5709763ff6c703",
+        "android_client_info": {
+          "package_name": "com.mycompany.nactocare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863938532922-m5siut2fp65t5vbqa0b6e2j50ht1vt8u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.nactocare",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "863938532922-8mihpg2hhp0p7p4gtnpua8boav2n1aru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUbht1dbFbGn9_TphVpBnQaIQVNDY0OS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863938532922-8mihpg2hhp0p7p4gtnpua8boav2n1aru.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "863938532922-frfnr1qal9boe5crp3d5cjum3ai9avov.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.nactocare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

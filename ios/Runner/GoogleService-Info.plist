@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>863938532922-frfnr1qal9boe5crp3d5cjum3ai9avov.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.863938532922-frfnr1qal9boe5crp3d5cjum3ai9avov</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>863938532922-m5siut2fp65t5vbqa0b6e2j50ht1vt8u.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDlLVAimlzw5FLrLv-6iNNCDGH9Uuq0lzI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>863938532922</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mycompany.nactocare</string>
+	<key>PROJECT_ID</key>
+	<string>nacto-care-vvg7qk</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nacto-care-vvg7qk.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:863938532922:ios:a68da8330c22cb60f6c703</string>
+</dict>
+</plist>
